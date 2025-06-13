@@ -31,6 +31,14 @@ app.use(express.urlencoded())
 app.set("view engine", "ejs")
 
 
+
+app.get("/edit", (req, res) => {
+    let user = data.find((ele) => ele.id == req.query.id)
+    res.render("Update", {user
+
+    })
+})
+
 app.get("/delete", (req, res) => {
     let userId = req.query.id
     data= data.filter((ele) => ele.id != userId)
