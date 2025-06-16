@@ -29,12 +29,29 @@ let data = [
 app.use(express.urlencoded())
 
 app.set("view engine", "ejs")
+ 
 
+
+
+app.post("/updateData", (req, res) => {
+    console.log(req.body)
+
+    data = data.map((ele) => {
+        if(ele.id == req.body.id)
+        {
+            ele.name = req.body.name,
+            ele.email = req.body.email,
+            ele.number = req.body.number
+        }
+        return ele
+    })
+    return res.redirect("/")
+})
 
 
 app.get("/edit", (req, res) => {
     let user = data.find((ele) => ele.id == req.query.id)
-    res.render("Update", {user
+    res.render("update", {user
 
     })
 })

@@ -7,11 +7,11 @@
 </head>
 <body>
     
-    <form method="post" action="/edit">
+    <form method="post" action="/updateData">
        <table>
              <tr>
                 <th>Id</th>
-                <td><input disabled type="number" name="id" value="<%= user.id %>"></td>
+                <td><input readonly type="number" name="id" value="<%= user.id %>"></td>
             </tr>
             <tr>
                 <th>Name</th>
