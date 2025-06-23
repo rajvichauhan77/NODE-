@@ -9,28 +9,62 @@
 <body>
     
     <div class="container mt-5">
-        <form action="/insertData" method="POST" class="">
+        <form action="/insertData" method="post" class="">
           
-                    <table  class=" p-5 mx-auto  " >
+                    <table  class="table p-2 mx-auto  " >
                     <tr>
+                        <input type="text" hidden name="id" value="<%= editData.id %>">
                         <th>name</th>
-                        <td><input name="name" type="text"></td>
+                        <td><input name="name" type="text" value="<%= editData.name %>"></td>
                     </tr>
                     <tr>
                         <th>email</th>
-                        <td><input name="email" type="text"></td>
+                        <td><input name="email" type="text" value="<%= editData.email %>"></td>
                     </tr>
                     <tr>
                         <th>phone</th>
-                        <td><input name="phone" type="number"></td>
+                        <td><input name="phone" type="number" value="<%= editData.phone %>"></td>
                     </tr>
                     <tr>
                         <th>password</th>
-                        <td><input name="password" type="text"></td>
+                        <td><input name="password" type="text" value="<%= editData.password %>"></td>
                     </tr>
+
+                    <tr>
+                        <th>Gender</th>
+                        <td>
+                            <input type="radio" name="gender" <% if(editData.gender == "male"){ %> checked <% } %> value="male" />
+                            <label>Male</label>
+
+                            <input type="radio" name="gender" <% if(editData.gender == "female"){ %> checked <% } %> value="female" />
+                            <label >Female</label>
+
+                            <input type="radio" name="gender" <% if(editData.gender == "other"){ %> checked <% } %> value="other" />
+                            <label >Other</label>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Skills</th>
+                        <td>
+                               <% ["HTML", "CSS", "JS", "React", "Node"].map((el)=>{ %>
+                                <input name="skills"  type="checkbox" value="<%= el %>" />
+                                <label><%= el %></label>
+                             <%})%>
+                        </td>
+                    </tr>
+
                     <tr>
                         <th >
-                            <button class="mt-2">Submit</button>
+                            <button class="mt-2 btn btn-primary">
+                                <% if(editData.id){ %>
+                                    Edit
+                                    <% } else  { %>
+                                        Submit
+
+                                     <% } %>
+                            </button>
                         </th>
                         
                     </tr>
@@ -39,24 +73,32 @@
     </div>
 
     <div class="container my-5">
-        <table class="table">
+        <table class="table table-striped">
              <tr>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Password</th>
+                <th>Gender</th>
+                <th>Skills</th>
                 <th>Delete</th>
             </tr>
 
             <% data.map((ele)=>{ %>
 
                 <tr>
-                    <td><%= ele.name></td>
-                    <td><%= ele.email%></td>
-                    <td><%= ele.phone></td>
-                    <td><%= ele.password></td>
+                    <td><%= ele.name %></td>
+                    <td><%= ele.email %></td>
+                    <td><%= ele.phone %></td>
+                    <td><%= ele.password %></td>
+                    <td><%= ele.gender %></td>
+                    <td><% ele.skills.map((sk)=>{ %> <%= sk %> <%}) %></td>
                     <td>
-                        <a class="btn btn-sm rounded-circle btn-outline-secondary" href="/delete/<%= ele.id %>"><i class="bi bi-trash"></i></a>
+                        <a class="btn btn-sm rounded-circle btn-outline-secondary" href="/delete/<%= ele.id %>">🗑️</a>
+
+                        <a class="btn btn-sm rounded-circle btn-outline-secondary" href="/edit?id=<%= ele.id %>">✏️</a>
+
+
                     </td>
                 </tr>
 
